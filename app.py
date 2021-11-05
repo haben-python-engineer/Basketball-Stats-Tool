@@ -1,7 +1,7 @@
 import constants
+import copy
 
-
-DATA_BASE = [player for player in constants.PLAYERS.copy()]
+DATA_BASE = [player for player in copy.deepcopy(constants.PLAYERS)]
 bandits = []
 panthers  = []
 warriors  = []
@@ -10,7 +10,7 @@ warriors  = []
 #Converts player's height to True/False statements and
 #Removes 'and' in player's guardians and replaces them with commas
 def clean_data():
-    for player in DATA_BASE:
+    for player in DATA_BASE.copy():
         player['height'] = int(player['height'][:2])
         player['guardians'] = player['guardians'].split('and')
         player['guardians'] = ', '.join(player['guardians'])
@@ -37,6 +37,7 @@ def balance(team, data):
     team.extend(inexperienced)
 
 
+
 #Takes team name and data and displays key stats like total experienced players,
 #Total inexperienced players, players average height, players and their guardians name
 def roster_info_for(team_name, team_data):
@@ -61,6 +62,8 @@ if __name__ == "__main__":
     balance(bandits, DATA_BASE)
     balance(warriors, DATA_BASE)
 
+    print(DATA_BASE)
+    print(constants.PLAYERS)
 
     while True:
         print("""
